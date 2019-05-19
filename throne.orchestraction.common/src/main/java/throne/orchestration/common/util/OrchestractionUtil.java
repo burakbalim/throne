@@ -7,7 +7,12 @@ import throne.orchestration.common.exception.OrchestractionException;
 import java.io.File;
 import java.io.FileInputStream;
 
-public class ConfigurationUtil {
+@SuppressWarnings("unchecked")
+public class OrchestractionUtil {
+
+    private OrchestractionUtil() {
+
+    }
 
     public static String readFile(String path) throws OrchestractionException {
         try {
@@ -26,5 +31,16 @@ public class ConfigurationUtil {
 
     public static <T extends IData> String writeData(IData value) {
         return new Gson().toJson(value.getMessage());
+    }
+
+    public static <T> T newInstanceOfClass(String className) throws OrchestractionException {
+        T instance;
+        try {
+            instance = (T) Class.forName(className).newInstance();
+        } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+            throw new OrchestractionException("Occurred Exception while new instance of class", e);
+        }
+
+        return instance;
     }
 }

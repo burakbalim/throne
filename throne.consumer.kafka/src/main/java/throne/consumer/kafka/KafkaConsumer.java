@@ -10,10 +10,8 @@ import throne.orchestration.common.ConsumerBase;
 import throne.orchestration.common.IData;
 import throne.orchestration.common.exception.ConsumerException;
 import throne.orchestration.common.exception.OrchestractionException;
-import throne.orchestration.common.util.ConfigurationUtil;
+import throne.orchestration.common.util.OrchestractionUtil;
 
-import java.time.Duration;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -25,7 +23,7 @@ public class KafkaConsumer extends ConsumerBase {
     private Consumer<Long, String> consumer;
 
     @Override
-    public void start() {
+    public void open() {
         Properties props = new Properties();
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, consumerConfiguration.getServerConfig());
         props.put(ConsumerConfig.GROUP_ID_CONFIG, consumerConfiguration.getOffsetResetEarlier());
@@ -40,7 +38,7 @@ public class KafkaConsumer extends ConsumerBase {
     }
 
     @Override
-    public void stop() {
+    public void close() {
         consumer.close();
         this.onStop();
     }
@@ -48,7 +46,7 @@ public class KafkaConsumer extends ConsumerBase {
     @Override
     protected List<IData> onConsume() throws ConsumerException {
         List<IData> messages = new ArrayList<>();
-        ConsumerRecords<Long, String> poll = consumer.poll(Duration.from(ChronoUnit.HOURS.getDuration()));
+        ConsumerRecords<Long, String> poll = consumer.poll(Integer.parseInt(consumerConfiguration.getPoolRecord()));
         Iterable<ConsumerRecord<Long, String>> records = poll.records(consumerConfiguration.getTopic());
 
         for (ConsumerRecord<Long, String> i : records) {
@@ -72,10 +70,11 @@ public class KafkaConsumer extends ConsumerBase {
     public void configure(String path) throws ConsumerException {
         String configuration = null;
         try {
-            configuration = ConfigurationUtil.readFile(path);
+            configuration = OrchestractionUtil.readFile(path);
         } catch (OrchestractionException e) {
             throw new ConsumerException("File read exception while consumer ", e, consumerConfiguration.getName());
         }
+
         consumerConfiguration = new Gson().fromJson(configuration, KafkaConsumerConfiguration.class);
     }
 }

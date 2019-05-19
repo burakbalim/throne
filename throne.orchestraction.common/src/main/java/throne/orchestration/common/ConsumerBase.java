@@ -7,10 +7,8 @@ import java.util.List;
 public abstract class ConsumerBase implements IConsumer {
 
     private boolean isOpen;
-    private boolean isActive;
     private ILogger ILogger;
     protected abstract List<IData> onConsume() throws ConsumerException;
-    private IPluginManager iPluginManager;
 
     protected void onOpen() {
         isOpen = true;
@@ -20,23 +18,11 @@ public abstract class ConsumerBase implements IConsumer {
         isOpen = false;
     }
 
-    public void consume() throws ConsumerException {
+    public List<IData> consume() throws ConsumerException {
         if (isOpen) {
-            isActive = false;
-            List<IData> iData = this.onConsume();
-            send(iData);
-            isActive = true;
+            return this.onConsume();
         } else {
             throw new ConsumerException("Consumer is not running");
-        }
-    }
-
-    private void send(List<IData> iData) {
-        if (iPluginManager != null) {
-             iPluginManager.submit(iData);
-        }
-        else {
-            //TODO warning log
         }
     }
 
@@ -47,7 +33,7 @@ public abstract class ConsumerBase implements IConsumer {
 
     @Override
     public boolean state() {
-        return isActive;
+        return isOpen;
     }
 
     protected ILogger getILogger() {

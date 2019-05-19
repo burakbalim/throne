@@ -13,6 +13,6 @@ repositories {
 
 dependencies {
     compile project (":throne.orchestraction.common")
-
+    compile project (":throne.consumer.kafka")
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }

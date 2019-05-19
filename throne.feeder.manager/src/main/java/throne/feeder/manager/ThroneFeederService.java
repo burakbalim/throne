@@ -4,9 +4,8 @@ import throne.orchestration.common.IFeeder;
 import throne.orchestration.common.exception.ConsumerException;
 import throne.orchestration.common.exception.FeederException;
 import throne.orchestration.common.exception.OrchestractionException;
-import throne.orchestration.common.util.ConfigurationUtil;
+import throne.orchestration.common.util.OrchestractionUtil;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,8 +29,8 @@ public class ThroneFeederService {
 
     public void init(String configurationPath) throws OrchestractionException {
         feederManager = new FeederManager();
-        String mainJson = ConfigurationUtil.readFile(configurationPath);
-        ConductorCfg conductorCfg = ConfigurationUtil.readJson(mainJson, ConductorCfg.class);
+        String mainJson = OrchestractionUtil.readFile(configurationPath);
+        ConductorCfg conductorCfg = OrchestractionUtil.readJson(mainJson, ConductorCfg.class);
         List<IFeeder> feeder = getFeeder(conductorCfg.getFeeder());
         feederManager.setFeederList(feeder);
     }

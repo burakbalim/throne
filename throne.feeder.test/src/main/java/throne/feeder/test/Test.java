@@ -6,7 +6,6 @@ import throne.feeder.manager.ThroneFeederService;
 import throne.orchestration.common.IData;
 import throne.orchestration.common.exception.OrchestractionException;
 
-import java.io.IOException;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -22,7 +21,7 @@ public class Test {
         feederManager.start();
 
         while (true) {
-            threadPoolExecutor.submit(() -> feederManager.feed((IData) () -> new Gson().toJson(new TestData("TEST"))));
+            threadPoolExecutor.submit(() -> feederManager.feed((IData) () -> new Gson().toJson(new  TestData("TEST"))));
             try {
                 Thread.sleep(10000);
             } catch (InterruptedException e) {
