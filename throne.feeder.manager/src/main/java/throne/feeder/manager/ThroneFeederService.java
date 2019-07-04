@@ -35,6 +35,7 @@ public class ThroneFeederService {
         feederManager.setFeederList(feeder);
     }
 
+    //TODO throw runtime exception
     private List<IFeeder> getFeeder(List<FeederCfg> feederList) throws OrchestractionException {
         List<IFeeder> feeders = new ArrayList<>();
         for (FeederCfg feederCfg : feederList) {
