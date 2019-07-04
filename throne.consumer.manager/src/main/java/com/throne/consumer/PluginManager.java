@@ -2,7 +2,6 @@ package com.throne.consumer;
 
 import throne.orchestration.common.IData;
 import throne.orchestration.common.IPlugin;
-
 import java.util.List;
 import java.util.concurrent.*;
 
@@ -15,7 +14,6 @@ class PluginManager {
     private static PluginManager instance;
 
     private PluginManager() {
-
     }
 
     static PluginManager getInstance() {

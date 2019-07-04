@@ -43,7 +43,7 @@ public class ThroneFeederService {
                     IFeeder feeder = (IFeeder) Class.forName("throne.feeder.kafka.KafkaFeeder").newInstance();
                     feeder.configure(feederCfg.getFeederPath());
                     feeders.add(feeder);
-                } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | ConsumerException | FeederException e) {
+                } catch (ClassNotFoundException | IllegalAccessException | InstantiationException  e) {
                     throw new OrchestractionException("Occurred Exception while kafka Feeder" , e);
                 }
             }
