@@ -7,7 +7,7 @@ import java.util.concurrent.*;
 
 class PluginManager {
 
-    private static ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(10, 10, 30, TimeUnit.SECONDS, new LinkedBlockingQueue<>());
+    private static ThreadPoolExecutor executor = new ThreadPoolExecutor(1, 10, 30, TimeUnit.SECONDS, new LinkedBlockingQueue<>());
 
     private List<IPlugin> pluginList;
     private static final Object object = new Object();
@@ -27,18 +27,15 @@ class PluginManager {
 
     void submit(List<IData> iDatas) {
         for (IPlugin  iPlugin : pluginList) {
-            threadPoolExecutor.submit(() -> {
-                //TODO Debug log
-                iDatas.forEach(iPlugin::send);
-            });
+            executor.submit(() -> iDatas.forEach(iPlugin::send));
         }
     }
 
-    void addConsumerPlugin(List<IPlugin> pluginList) {
+    void add(List<IPlugin> pluginList) {
         this.pluginList = pluginList;
     }
 
-    public void shutdown() {
-        threadPoolExecutor.shutdown();
+    void shutdown() {
+        executor.shutdown();
     }
 }

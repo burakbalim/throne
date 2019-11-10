@@ -1,6 +1,6 @@
 package throne.orchestration.common.exception;
 
-public class FeederException extends OrchestractionException {
+public class FeederException extends OrchestrationException {
 
     public FeederException(String message) {
         super(message);

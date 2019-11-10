@@ -1,6 +1,6 @@
 package throne.orchestration.common.manager;
 
-public class LoggerManager implements OrchestractionManager {
+public class LoggerManager implements OrchestrationManager {
 
     @Override
     public void start() {

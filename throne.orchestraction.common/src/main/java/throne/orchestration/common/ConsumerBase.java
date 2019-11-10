@@ -7,7 +7,6 @@ import java.util.List;
 public abstract class ConsumerBase implements IConsumer {
 
     private boolean isOpen;
-    private ILogger ILogger;
     protected abstract List<IData> onConsume() throws ConsumerException;
 
     protected void onOpen() {
@@ -27,17 +26,7 @@ public abstract class ConsumerBase implements IConsumer {
     }
 
     @Override
-    public void setILogger(ILogger ILogger) {
-        this.ILogger = ILogger;
-    }
-
-    @Override
     public boolean state() {
         return isOpen;
     }
-
-    protected ILogger getILogger() {
-        return this.ILogger;
-    }
-
 }

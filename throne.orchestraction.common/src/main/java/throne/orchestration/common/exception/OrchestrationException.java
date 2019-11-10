@@ -1,16 +1,16 @@
 package throne.orchestration.common.exception;
 
-public class OrchestractionException extends Exception {
+public class OrchestrationException extends Exception {
 
     private Exception innerException;
     private String message;
 
-    public OrchestractionException(String message) {
+    public OrchestrationException(String message) {
         super(message);
         this.message = message;
     }
 
-    public OrchestractionException(String message, Exception innerException) {
+    public OrchestrationException(String message, Exception innerException) {
         super(message);
         this.innerException = innerException;
     }

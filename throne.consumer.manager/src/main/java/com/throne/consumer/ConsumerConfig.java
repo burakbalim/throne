@@ -1,6 +1,6 @@
 package com.throne.consumer;
 
-public class IPluginCfg {
+public class ConsumerConfig {
 
     private String name;
     private String type;

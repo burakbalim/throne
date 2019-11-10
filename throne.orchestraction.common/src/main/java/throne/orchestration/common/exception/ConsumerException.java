@@ -1,6 +1,6 @@
 package throne.orchestration.common.exception;
 
-public class ConsumerException extends OrchestractionException {
+public class ConsumerException extends OrchestrationException {
 
     public ConsumerException(String message) {
         super(message);

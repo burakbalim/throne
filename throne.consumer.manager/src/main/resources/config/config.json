@@ -1,0 +1,16 @@
+{
+  "consumers": [
+    {
+      "name": "",
+      "type": "",
+      "path": ""
+    }
+  ],
+  "plugins": [
+    {
+      "name": "",
+      "type": "",
+      "path": ""
+    }
+  ]
+}

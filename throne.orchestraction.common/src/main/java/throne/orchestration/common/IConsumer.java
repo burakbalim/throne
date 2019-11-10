@@ -10,7 +10,7 @@ public interface IConsumer extends IConfigurable {
 
     public void close() throws ConsumerException;
 
-    public List<IData> consume() throws ConsumerException, ConsumerException;
+    public List<IData> consume() throws ConsumerException;
 
     public boolean state();
 

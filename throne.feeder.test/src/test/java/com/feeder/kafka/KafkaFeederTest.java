@@ -3,6 +3,7 @@ package com.feeder.kafka;
 import org.junit.Test;
 import throne.feeder.manager.FeederManager;
 import throne.feeder.manager.ThroneFeederService;
+import throne.orchestration.common.exception.OrchestrationException;
 
 import java.io.IOException;
 import java.time.temporal.ChronoUnit;
@@ -17,7 +18,7 @@ public class KafkaFeederTest {
     public ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(10, 10, 30, TimeUnit.SECONDS, new LinkedBlockingQueue<>());
 
     @Test
-    public void feederCountTest() throws IOException {
+    public void feederCountTest() throws IOException, OrchestrationException {
         ThroneFeederService service = ThroneFeederService.getInstance();
         service.init("/home/burakbalim/configuration/feederManager.json");
         FeederManager feederManager = service.getFeederManager();

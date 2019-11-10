@@ -1,4 +1,4 @@
-package com.throne.consumer;
+package com.throne.model;
 
 import com.google.gson.Gson;
 import throne.orchestration.common.IData;

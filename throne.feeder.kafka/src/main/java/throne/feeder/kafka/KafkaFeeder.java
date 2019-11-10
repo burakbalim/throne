@@ -8,8 +8,8 @@ import throne.orchestration.common.FeederBase;
 import throne.orchestration.common.IData;
 import throne.orchestration.common.ILogger;
 import throne.orchestration.common.exception.FeederException;
-import throne.orchestration.common.exception.OrchestractionException;
-import throne.orchestration.common.util.OrchestractionUtil;
+import throne.orchestration.common.exception.OrchestrationException;
+import throne.orchestration.common.util.OrchestrationUtil;
 
 import java.util.Properties;
 
@@ -45,8 +45,8 @@ public class KafkaFeeder extends FeederBase {
     @Override
     public void configure(String path) throws FeederException {
         try {
-            kafkaConfiguration = OrchestractionUtil.readJson(OrchestractionUtil.readFile(path), KafkaConfiguration.class);
-        } catch (OrchestractionException e) {
+            kafkaConfiguration = OrchestrationUtil.readJson(OrchestrationUtil.readFile(path), KafkaConfiguration.class);
+        } catch (OrchestrationException e) {
             throw new FeederException("Configuration Exception", e, kafkaConfiguration.getName());
         }
     }

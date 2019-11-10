@@ -1,6 +1,6 @@
-package com.throne.consumer;
+package com.throne.plugin;
 
-public class ConsumerCfg {
+public class PluginConfig {
 
     private String name;
     private String type;

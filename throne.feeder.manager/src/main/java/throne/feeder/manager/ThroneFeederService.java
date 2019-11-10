@@ -1,10 +1,9 @@
 package throne.feeder.manager;
 
 import throne.orchestration.common.IFeeder;
-import throne.orchestration.common.exception.ConsumerException;
 import throne.orchestration.common.exception.FeederException;
-import throne.orchestration.common.exception.OrchestractionException;
-import throne.orchestration.common.util.OrchestractionUtil;
+import throne.orchestration.common.exception.OrchestrationException;
+import throne.orchestration.common.util.OrchestrationUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,16 +26,16 @@ public class ThroneFeederService {
         return instance;
     }
 
-    public void init(String configurationPath) throws OrchestractionException {
-        feederManager = new FeederManager();
-        String mainJson = OrchestractionUtil.readFile(configurationPath);
-        ConductorCfg conductorCfg = OrchestractionUtil.readJson(mainJson, ConductorCfg.class);
+    public void init(String configurationPath) throws OrchestrationException {
+        String mainJson = OrchestrationUtil.readFile(configurationPath);
+        ConductorCfg conductorCfg = OrchestrationUtil.readJson(mainJson, ConductorCfg.class);
         List<IFeeder> feeder = getFeeder(conductorCfg.getFeeder());
+
+        feederManager = new FeederManager();
         feederManager.setFeederList(feeder);
     }
 
-    //TODO throw runtime exception
-    private List<IFeeder> getFeeder(List<FeederCfg> feederList) throws OrchestractionException {
+    private List<IFeeder> getFeeder(List<FeederCfg> feederList) throws OrchestrationException {
         List<IFeeder> feeders = new ArrayList<>();
         for (FeederCfg feederCfg : feederList) {
             if (feederCfg.getFeederType().equals("KafkaFeeder")) {
@@ -45,7 +44,7 @@ public class ThroneFeederService {
                     feeder.configure(feederCfg.getFeederPath());
                     feeders.add(feeder);
                 } catch (ClassNotFoundException | IllegalAccessException | InstantiationException  e) {
-                    throw new OrchestractionException("Occurred Exception while kafka Feeder" , e);
+                    throw new OrchestrationException("Occurred Exception while kafka Feeder" , e);
                 }
             }
         }

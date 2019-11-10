@@ -6,7 +6,5 @@ import throne.orchestration.common.exception.FeederException;
 
 public interface IConfigurable {
 
-    public void configure(String path);
-
-    public void setILogger(ILogger ILogger);
+    public void configure(String path) throws ConsumerException;
 }

@@ -1,6 +1,5 @@
 package throne.orchestration.common;
 
-
 import throne.orchestration.common.exception.FeederException;
 
 public interface IFeeder extends IConfigurable {

@@ -2,8 +2,7 @@ package throne.orchestration.common.manager;
 
 import throne.orchestration.common.exception.FeederException;
 
-public interface OrchestractionManager {
-
+public interface OrchestrationManager {
 
     public void start() throws FeederException;
 
