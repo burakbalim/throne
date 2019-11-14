@@ -47,12 +47,7 @@ public class KafkaFeeder extends FeederBase {
         try {
             kafkaConfiguration = OrchestrationUtil.readJson(OrchestrationUtil.readFile(path), KafkaConfiguration.class);
         } catch (OrchestrationException e) {
-            throw new FeederException("Configuration Exception", e, kafkaConfiguration.getName());
+            throw new FeederException("Kafka Feeder configuration exception", e);
         }
-    }
-
-    @Override
-    public void setILogger(ILogger logger) {
-        this.iLogger = logger;
     }
 }

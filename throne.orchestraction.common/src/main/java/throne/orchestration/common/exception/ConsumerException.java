@@ -3,7 +3,7 @@ package throne.orchestration.common.exception;
 public class ConsumerException extends OrchestrationException {
 
     public ConsumerException(String message) {
-        super(message);
+        super(innerException, message);
     }
 
     public ConsumerException(String message, Exception innerException) {

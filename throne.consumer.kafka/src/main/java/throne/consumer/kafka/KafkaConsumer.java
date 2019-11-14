@@ -72,7 +72,7 @@ public class KafkaConsumer extends ConsumerBase {
         try {
             configuration = OrchestrationUtil.readFile(path);
         } catch (OrchestrationException e) {
-            throw new ConsumerException("File read exception while consumer ", e, this.configuration.getName());
+            throw new ConsumerException("File read exception while setting it up consumer ", e, this.configuration.getName());
         }
         this.configuration = new Gson().fromJson(configuration, KafkaConsumerConfiguration.class);
     }

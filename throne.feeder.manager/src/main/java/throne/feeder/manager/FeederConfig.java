@@ -1,6 +1,6 @@
 package throne.feeder.manager;
 
-public class FeederCfg {
+public class FeederConfig {
 
     private String feederType;
     private String feederPath;

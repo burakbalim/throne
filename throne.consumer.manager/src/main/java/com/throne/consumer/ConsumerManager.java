@@ -16,9 +16,7 @@ class ConsumerManager implements OrchestrationManager {
 
     private Logger logger = Logger.getLogger(ConsumerManager.class.getName());
 
-    private ScheduledExecutorService mainThread = Executors.newScheduledThreadPool(1, r -> new Thread( "Consumer Manager Main-Thread"));
-
-    private ExecutorService executor = new ThreadPoolExecutor(1, 10, 0, TimeUnit.SECONDS, new LinkedBlockingQueue<>());
+    private ExecutorService executor = new ThreadPoolExecutor(10, 50, 10, TimeUnit.SECONDS, new LinkedBlockingQueue<>());
 
     private PluginManager pluginManager;
 
@@ -46,7 +44,8 @@ class ConsumerManager implements OrchestrationManager {
         });
 
         isStopSignal = false;
-        mainThread.scheduleAtFixedRate(this.process(), 10, 10, TimeUnit.SECONDS);
+        Thread consumerManagerThread = new Thread(this::process, "Consumer Manager Main-Thread");
+        consumerManagerThread.start();
     }
 
     @Override
@@ -64,23 +63,19 @@ class ConsumerManager implements OrchestrationManager {
         pluginManager.shutdown();
     }
 
-    private Runnable process() {
-        return () -> {
-            while (!isStopSignal) {
-                List<IConsumer> activeConsumers = this.consumerList.stream().filter(IConsumer::state).collect(Collectors.toList());
-                for (IConsumer item : activeConsumers) {
-                    executor.submit(() -> {
-                        try {
-                            List<IData> data = item.consume();
-                            if (!data.isEmpty()) {
-                                pluginManager.submit(data);
-                            }
-                        } catch (ConsumerException e) {
-                            logger.log(Level.WARNING, "Occurred Exception when submitting data " + e);
-                        }
-                    });
+    private void process() {
+        while (!isStopSignal) {
+            List<IConsumer> activeConsumers = this.consumerList.stream().filter(IConsumer::state).collect(Collectors.toList());
+            for (IConsumer item : activeConsumers) {
+                try {
+                    List<IData> data = item.consume();
+                    if (!data.isEmpty()) {
+                        pluginManager.submit(data);
+                    }
+                } catch (ConsumerException e) {
+                    logger.log(Level.WARNING, "Occurred Exception when submitting data " + e);
                 }
             }
-        };
+        }
     }
 }

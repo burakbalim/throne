@@ -2,7 +2,7 @@ package com.throne.consumer;
 
 public enum ConsumerType {
 
-    KafkaConsumer("Kafka"), RabbitMqConsumer("Rabbit");
+    KafkaConsumer("KafkaConsumer"), RabbitMqConsumer("RabbitConsumer");
 
     private final String name;
 

@@ -1,0 +1,10 @@
+{
+  "name": "Burak-Consumer",
+  "poolRecord": "100",
+  "enableAutoCommit": "true"	,
+  "topic": "demo",
+  "offsetResetEarlier": "earliest",
+  "groupIDConfig": "001",
+  "serverConfig": "localhost:9092",
+  "dataClazz": "com.throne.consumer.ConsoleTestModel"
+}

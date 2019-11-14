@@ -1,0 +1,16 @@
+{
+  "feeder": [
+    {
+      "feederType": "KafkaFeeder",
+      "feederPath": "throne.feeder.test/src/main/resources/feederConf.json"
+    },
+    {
+      "feederType": "KafkaFeeder",
+      "feederPath": "throne.feeder.test/src/main/resources/feederConf.json"
+    },
+    {
+      "feederType": "KafkaFeeder",
+      "feederPath": "throne.feeder.test/src/main/resources/feederConf.json"
+    }
+  ]
+}

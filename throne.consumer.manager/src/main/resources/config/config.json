@@ -1,16 +1,16 @@
 {
   "consumers": [
     {
-      "name": "",
-      "type": "",
-      "path": ""
+      "name": "KafkaConsumer_1",
+      "type": "KafkaConsumer",
+      "path": "/Users/burakbalim/codes/throne/throne.consumer.manager/src/main/resources/config/kafkaConsumer_1.json"
     }
   ],
   "plugins": [
     {
-      "name": "",
-      "type": "",
-      "path": ""
+      "name": "ConsolePlugin_1",
+      "type": "ConsolePlugin",
+      "path": "/Users/burakbalim/codes/throne/throne.consumer.manager/src/main/resources/config/plugin_1.json"
     }
   ]
 }

@@ -8,19 +8,20 @@ import throne.orchestration.common.util.OrchestrationUtil;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ThroneFeederService {
+public class FeederService {
 
-    private FeederManager feederManager;
-    private static ThroneFeederService instance = null;
     private static final Object object = new Object();
 
-    private ThroneFeederService() {
+    private FeederManager feederManager;
+    private static FeederService instance = null;
+
+    private FeederService() {
     }
 
-    public static ThroneFeederService getInstance() {
+    public static FeederService getInstance() {
         synchronized (object) {
             if (instance == null) {
-                instance = new ThroneFeederService();
+                instance = new FeederService();
             }
         }
         return instance;
@@ -28,23 +29,23 @@ public class ThroneFeederService {
 
     public void init(String configurationPath) throws OrchestrationException {
         String mainJson = OrchestrationUtil.readFile(configurationPath);
-        ConductorCfg conductorCfg = OrchestrationUtil.readJson(mainJson, ConductorCfg.class);
-        List<IFeeder> feeder = getFeeder(conductorCfg.getFeeder());
+        ConductorConfig conductorConfig = OrchestrationUtil.readJson(mainJson, ConductorConfig.class);
+        List<IFeeder> feeder = getFeeder(conductorConfig.getFeeder());
 
         feederManager = new FeederManager();
         feederManager.setFeederList(feeder);
     }
 
-    private List<IFeeder> getFeeder(List<FeederCfg> feederList) throws OrchestrationException {
+    private List<IFeeder> getFeeder(List<FeederConfig> feederList) throws OrchestrationException {
         List<IFeeder> feeders = new ArrayList<>();
-        for (FeederCfg feederCfg : feederList) {
-            if (feederCfg.getFeederType().equals("KafkaFeeder")) {
+        for (FeederConfig feederConfig : feederList) {
+            if (feederConfig.getFeederType().equals("KafkaFeeder")) {
                 try {
                     IFeeder feeder = (IFeeder) Class.forName("throne.feeder.kafka.KafkaFeeder").newInstance();
-                    feeder.configure(feederCfg.getFeederPath());
+                    feeder.configure(feederConfig.getFeederPath());
                     feeders.add(feeder);
                 } catch (ClassNotFoundException | IllegalAccessException | InstantiationException  e) {
-                    throw new OrchestrationException("Occurred Exception while kafka Feeder" , e);
+                    throw new OrchestrationException("Occurred Exception while setting it up kafka" , e);
                 }
             }
         }

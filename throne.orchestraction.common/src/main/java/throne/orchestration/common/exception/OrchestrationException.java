@@ -2,19 +2,22 @@ package throne.orchestration.common.exception;
 
 public class OrchestrationException extends Exception {
 
-    private Exception innerException;
-    private String message;
+    private final Throwable innerException;
+    private final String message;
 
-    public OrchestrationException(String message) {
+    public OrchestrationException(final Throwable innerException, final String message) {
         super(message);
+        this.innerException = innerException;
         this.message = message;
     }
 
-    public OrchestrationException(String message, Exception innerException) {
+    public OrchestrationException(final String message, final Throwable innerException) {
         super(message);
         this.innerException = innerException;
+        this.message = message;
     }
 
+    @Override
     public String getMessage() {
 
         if (innerException != null) {

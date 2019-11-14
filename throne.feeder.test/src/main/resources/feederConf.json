@@ -1,0 +1,13 @@
+	{
+
+	"name": "Burak-Feeder",
+	"topic": "demo",
+	"serverConfig": "localhost:9092",
+	"clientIdConfig": "client1",
+	"messageCount": 1000,
+	"groupIdConfig": "consumerGroup1",
+	"maxNoMessageFoundCount": 100,
+	"offsetRestLatest": "latest",
+	"offsetRestEarlier": "earliest",
+	"maxPollRecords": 1
+}

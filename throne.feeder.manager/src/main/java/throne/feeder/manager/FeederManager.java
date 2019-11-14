@@ -17,13 +17,13 @@ public class FeederManager implements OrchestrationManager {
     private Logger logger = Logger.getLogger(FeederManager.class.getName());
 
     private List<IFeeder> feederList;
-    private ThreadPoolExecutor threadPoolExecutor;
+    private ThreadPoolExecutor executor;
     private boolean isStopSignal;
 
     @Override
     public void start() {
         isStopSignal = true;
-        threadPoolExecutor = new ThreadPoolExecutor(10, 10, 30, TimeUnit.SECONDS, new LinkedBlockingQueue<>());
+        executor = new ThreadPoolExecutor(10, 10, 30, TimeUnit.SECONDS, new LinkedBlockingQueue<>());
 
         for (IFeeder item : feederList) {
             try {
@@ -37,7 +37,7 @@ public class FeederManager implements OrchestrationManager {
     @Override
     public void stop() throws FeederException {
         isStopSignal = false;
-        threadPoolExecutor.shutdown();
+        executor.shutdown();
 
         for (IFeeder item : feederList) {
             item.close();
@@ -61,7 +61,7 @@ public class FeederManager implements OrchestrationManager {
     }
 
     private void onFeed(IData iData, IFeeder feeder) {
-        threadPoolExecutor.submit(() -> {
+        executor.submit(() -> {
             try {
                 feeder.feed(iData);
             } catch (Exception e) {

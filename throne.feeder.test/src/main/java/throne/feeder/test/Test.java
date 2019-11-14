@@ -2,9 +2,9 @@ package throne.feeder.test;
 
 import com.google.gson.Gson;
 import throne.feeder.manager.FeederManager;
-import throne.feeder.manager.ThroneFeederService;
+import throne.feeder.manager.FeederService;
 import throne.orchestration.common.IData;
-import throne.orchestration.common.exception.OrchestractionException;
+import throne.orchestration.common.exception.OrchestrationException;
 
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -14,9 +14,9 @@ public class Test {
 
     public static ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(10, 10, 30, TimeUnit.SECONDS, new LinkedBlockingQueue<>());
 
-    public static void main(String[] args) throws OrchestractionException {
-        ThroneFeederService service = ThroneFeederService.getInstance();
-        service.init("/home/burakbalim/configuration/feederManager.json");
+    public static void main(String[] args) throws OrchestrationException {
+        FeederService service = FeederService.getInstance();
+        service.init("/Users/burakbalim/codes/throne/throne.feeder.test/src/main/resources/feederManager.json");
         FeederManager feederManager = service.getFeederManager();
         feederManager.start();
 
