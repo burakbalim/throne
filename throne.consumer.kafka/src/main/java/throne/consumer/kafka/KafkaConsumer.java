@@ -12,6 +12,7 @@ import throne.orchestration.common.exception.ConsumerException;
 import throne.orchestration.common.exception.OrchestrationException;
 import throne.orchestration.common.util.OrchestrationUtil;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -46,7 +47,7 @@ public class KafkaConsumer extends ConsumerBase {
     @Override
     protected List<IData> onConsume() throws ConsumerException {
         List<IData> messages = new ArrayList<>();
-        ConsumerRecords<Long, String> poll = consumer.poll(Integer.parseInt(configuration.getPoolRecord()));
+        ConsumerRecords<Long, String> poll = consumer.poll(Duration.ofSeconds(5));
         Iterable<ConsumerRecord<Long, String>> records = poll.records(configuration.getTopic());
 
         for (ConsumerRecord<Long, String> i : records) {
@@ -75,5 +76,10 @@ public class KafkaConsumer extends ConsumerBase {
             throw new ConsumerException("File read exception while setting it up consumer ", e, this.configuration.getName());
         }
         this.configuration = new Gson().fromJson(configuration, KafkaConsumerConfiguration.class);
+    }
+
+    @Override
+    public String name() {
+        return configuration.getName();
     }
 }

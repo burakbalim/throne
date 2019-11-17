@@ -73,7 +73,7 @@ class ConsumerManager implements OrchestrationManager {
                         pluginManager.submit(data);
                     }
                 } catch (ConsumerException e) {
-                    logger.log(Level.WARNING, "Occurred Exception when submitting data " + e);
+                    logger.log(Level.WARNING, "Occurred Exception when fetching or submitting data " + e);
                 }
             }
         }

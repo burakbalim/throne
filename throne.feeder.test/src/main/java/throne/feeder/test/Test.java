@@ -21,7 +21,7 @@ public class Test {
         feederManager.start();
 
         while (true) {
-            threadPoolExecutor.submit(() -> feederManager.feed((IData) () -> new Gson().toJson(new  TestData("TEST"))));
+            threadPoolExecutor.submit(() -> feederManager.feed("demo", (IData) () -> new Gson().toJson(new  TestData("TEST"))));
             try {
                 Thread.sleep(10000);
             } catch (InterruptedException e) {

@@ -8,5 +8,7 @@ public interface IFeeder extends IConfigurable {
 
     public void close() throws FeederException;
 
-    public void feed(IData data) throws FeederException;
+    public void feed(String topic, IData data) throws FeederException;
+
+    public FeederType getType();
 }

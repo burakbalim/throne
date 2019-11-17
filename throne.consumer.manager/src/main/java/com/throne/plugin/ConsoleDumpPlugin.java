@@ -13,4 +13,9 @@ public class ConsoleDumpPlugin implements IPlugin {
     @Override
     public void configure(String path) {
     }
+
+    @Override
+    public String name() {
+        return "Console Plugin";
+    }
 }

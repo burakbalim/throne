@@ -1,8 +1,13 @@
 package throne.orchestration.common;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public abstract class FeederBase implements IFeeder {
 
-    protected abstract void produce(IData data);
+    private Logger logger = Logger.getLogger(FeederBase.class.getName());
+
+    protected abstract void produce(String topic, IData data);
     private boolean isOpen;
 
     protected void onOpen() {
@@ -13,10 +18,12 @@ public abstract class FeederBase implements IFeeder {
         isOpen = false;
     }
 
-    public void feed(IData data) {
+    public void feed(String topic, IData data) {
         if (isOpen) {
-            produce(data);
+            produce(topic, data);
+        }
+        else {
+            logger.log(Level.INFO, "This Feeder not opened. Feeder name: " + name());
         }
     }
-
 }
